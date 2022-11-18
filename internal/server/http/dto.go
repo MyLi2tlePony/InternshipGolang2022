@@ -104,34 +104,6 @@ func (r *reservedBalance) GetAmount() int {
 	return r.Amount
 }
 
-type reservedBalanceHistory struct {
-	UserID     int
-	OrderID    int
-	ServiceID  int
-	CreateDate time.Time
-	Amount     int
-}
-
-func (r *reservedBalanceHistory) GetUserID() int {
-	return r.UserID
-}
-
-func (r *reservedBalanceHistory) GetOrderID() int {
-	return r.OrderID
-}
-
-func (r *reservedBalanceHistory) GetServiceID() int {
-	return r.ServiceID
-}
-
-func (r *reservedBalanceHistory) GetCreateDate() time.Time {
-	return r.CreateDate
-}
-
-func (r *reservedBalanceHistory) GetAmount() int {
-	return r.Amount
-}
-
 type transferredBalance struct {
 	SrcUserID  int
 	DstUserID  int
@@ -179,7 +151,4 @@ func (u confirmedBalanceRecord) GetMonth() int {
 
 func (u confirmedBalanceRecord) GetYear() int {
 	return u.Year
-}
-
-type getBalanceHistory struct {
 }

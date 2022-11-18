@@ -6,7 +6,7 @@
 
 Создайте и запустите докер контейнер командой `make up` или `cd deployments && docker-compose -f docker-compose.yaml build && docker-compose -f docker-compose.yaml up`
 
-## Запуск интеграционных тестов   
+## Запуск интеграционных и юнит тестов   
 Создайте и запустите докер контейнер с интеграционными тестами командой `make integration-tests` или `cd deployments && docker-compose -f docker-compose.test.yaml build && docker-compose -f docker-compose.test.yaml up`
 
 ## Запросы Postman
@@ -17,10 +17,10 @@
 
 Тело запроса:
 `
-{
-    "UserID": 5,
-    "Amount": 1000
-}
+    {
+        "UserID": 5,
+        "Amount": 1000
+    }
 `
 
 ### Метод резервирования средств с основного баланса на отдельном счете - `POST`
@@ -31,10 +31,10 @@
 Тело запроса:
 `
 {
-"UserID": 5,
-"OrderID": 1,
-"ServiceID": 2,
-"Amount": 500
+    "UserID": 5,
+    "OrderID": 1,
+    "ServiceID": 2,
+    "Amount": 500
 }
 `
 
@@ -46,9 +46,70 @@
 Тело запроса:
 `
 {
-"UserID": 5,
-"OrderID": 1,
-"ServiceID": 2,
-"Amount": 500
+    "UserID": 5,
+    "OrderID": 1,
+    "ServiceID": 2,
+    "Amount": 500
 }
 `
+
+### Метод разрезервирования средств - `POST`
+Принимает id пользователя, id услуги, id заказа, сумму. (возвращает деньги пользователю на счет)
+
+`http://0.0.0.0:3456/reserve/cancel`
+
+Тело запроса:
+`
+{
+    "UserID": 5,
+    "OrderID": 2,
+    "ServiceID": 2,
+    "Amount": 500
+}
+`
+
+### Метод получения баланса пользователя - `POST`
+Принимает id пользователя
+
+`http://0.0.0.0:3456/select`
+
+Тело запроса:
+`{
+    "ID": 5
+}`
+
+Тело ответа:
+`{
+    "ID": 5,
+    "Balance": 500
+}`
+
+### Метод перевода баланса от одного пользователя другому - `POST`
+Принимает id пользователя отправителя, id пользователя получателя, сумма
+
+`http://0.0.0.0:3456/transfer`
+
+Тело запроса:
+`{
+"SrcUserID": 5,
+"DstUserID": 4,
+"Amount": 100
+}`
+
+### Метод получения ссылки на отчет - `POST`
+Принимает месяц и год
+
+`http://0.0.0.0:3456/report/link`
+
+Тело запроса:
+`{
+"Month": 11,
+"Year":  2022
+}`
+
+Ответ:
+`"http://0.0.0.0:3456/report/file?file=2022_11"`
+
+### Метод скачивания файла с отчетом - `GET`
+
+`http://0.0.0.0:3456/report/file?file=2022_11`

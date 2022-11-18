@@ -97,7 +97,6 @@ func TestBalanceTransfer(t *testing.T) {
 	require.True(t, selectedTb[0].GetSrcUserID() == tb.GetSrcUserID())
 	require.True(t, selectedTb[0].GetAmount() == tb.GetAmount())
 	require.True(t, selectedTb[0].GetDstUserID() == tb.GetDstUserID())
-	require.True(t, selectedTb[0].GetCreateDate() == tb.GetCreateDate())
 
 	require.Nil(t, sqlStorage.DeleteUser(ctx, selectedSrcUser.GetID()))
 	require.Nil(t, sqlStorage.DeleteUser(ctx, selectedDstUser.GetID()))
@@ -279,7 +278,7 @@ func TestReserveBalance(t *testing.T) {
 	ctx := context.Background()
 	require.Nil(t, sqlStorage.Connect(ctx))
 
-	user := entity.NewUser(120, 2000)
+	user := entity.NewUser(121, 2000)
 	require.Nil(t, sqlStorage.CreateUser(ctx, user))
 
 	rb := reservedBalance{
@@ -312,7 +311,6 @@ func TestReserveBalance(t *testing.T) {
 	require.True(t, reservedBalance.GetOrderID() == rb.GetOrderID())
 	require.True(t, reservedBalance.GetServiceID() == rb.GetServiceID())
 	require.True(t, reservedBalance.GetAmount() == rb.GetAmount())
-	require.True(t, reservedBalance.GetCreateDate() == rb.GetCreateDate())
 
 	require.Nil(t, sqlStorage.DeleteReservedBalance(ctx, rb.GetUserID(), rb.GetOrderID(), rb.GetServiceID()))
 	require.Nil(t, sqlStorage.DeleteUser(ctx, user.GetID()))
@@ -355,7 +353,7 @@ func TestConfirmReservedBalance(t *testing.T) {
 
 	rb := reservedBalance{
 		UserID:     user.GetID(),
-		OrderID:    20,
+		OrderID:    25,
 		ServiceID:  20,
 		Amount:     2000,
 		CreateDate: time.Date(2022, 2, 2, 2, 2, 2, 0, time.UTC),
