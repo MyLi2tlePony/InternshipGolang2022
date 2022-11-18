@@ -1,0 +1,13 @@
+[logger]
+level = "info"
+
+[database]
+Prefix = "postgresql"
+DatabaseName = "postgres"
+Host = "balance_postgresdb"
+Port = ""
+UserName = "postgres"
+Password = "1234512345"
+
+[migration]
+Path = "migrations"

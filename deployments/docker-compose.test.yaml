@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: test_postgres
+    image: postgres:14.5
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234512345"
+    ports:
+      - "5436:5432"
+    networks:
+      - default
+
+  tests:
+    container_name: integration_tests
+    build:
+      context: ..
+      dockerfile: ./build/test/Dockerfile
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

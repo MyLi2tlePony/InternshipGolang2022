@@ -1,0 +1,19 @@
+[logger]
+level = "info"
+
+[database]
+Prefix = "postgresql"
+DatabaseName = "postgres"
+Host = "test_postgres"
+Port = ""
+#Host = "localhost"
+#Port = "5436"
+UserName = "postgres"
+Password = "1234512345"
+
+[migration]
+Path = "migrations"
+
+[server]
+Host = "localhost"
+Port = "3456"
